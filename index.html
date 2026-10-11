@@ -1,20 +1,280 @@
-<!-- Input Jumlah Antena dengan Pilihan -->
-<div class="form-group">
-    <label for="jumlah_antena">Jumlah Antena :</label>
-    <select id="jumlah_antena" name="jumlah_antena" onchange="toggleNamaLari()" required>
-        <option value="1">1 Antena</option>
-        <option value="2">2 Antena</option>
-    </select>
-    <small class="form-text">(Tiap Joki Maksimal 2 Antena / Jika Mendaftarkan 2 Antena, Wajib Menggunakan 2 Nama Lari)</small>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Pendaftaran Lomba Experiment Antena 2M Band</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            /* Latar belakang foto bertema teknologi frekuensi/radio */
+            background-image: url('https://unsplash.com');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            padding: 20px 15px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.95);
+            width: 100%;
+            max-width: 500px;
+            padding: 25px 20px;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        h2 {
+            text-align: center;
+            color: #1a365d;
+            margin-bottom: 25px;
+            font-size: 1.4rem;
+            line-height: 1.4;
+            font-weight: 700;
+            border-bottom: 3px solid #3182ce;
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 4px;
+            font-size: 0.95rem;
+        }
+
+        .info-text {
+            display: block;
+            font-size: 0.8rem;
+            color: #718096;
+            margin-bottom: 8px;
+            font-style: italic;
+            line-height: 1.3;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #cbd5e0;
+            border-radius: 8px;
+            font-size: 16px; /* Mencegah auto-zoom di HP Android */
+            color: #2d3748;
+            background-color: #fff;
+            outline: none;
+            transition: border-color 0.2s;
+            -webkit-appearance: none; /* Standarisasi tampilan di Android */
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: #3182ce;
+            box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.15);
+        }
+
+        select {
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://w3.org' viewBox='0 0 24 24' fill='none' stroke='%234a5568' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            background-size: 16px;
+            padding-right: 40px;
+        }
+
+        .animated-wrapper {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+        }
+
+        .animated-wrapper.show {
+            max-height: 120px;
+            opacity: 1;
+            margin-top: 15px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background-color: #3182ce;
+            color: white;
+            border: none;
+            padding: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(49, 130, 206, 0.2);
+            transition: background-color 0.2s;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            background-color: #2b6cb0;
+        }
+
+        .admin-section {
+            margin-top: 30px;
+            border-top: 1px dashed #e2e8f0;
+            padding-top: 20px;
+            text-align: center;
+        }
+
+        .admin-title {
+            font-size: 0.85rem;
+            color: #718096;
+            margin-bottom: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .admin-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-admin {
+            flex: 1;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #38a169;
+            color: white;
+            text-decoration: none;
+            padding: 12px 8px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(56, 161, 105, 0.2);
+            transition: background-color 0.2s;
+        }
+
+        .btn-admin:hover {
+            background-color: #2f855a;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px 10px;
+            }
+            .container {
+                padding: 20px 15px;
+            }
+            .admin-buttons {
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Formulir Pendaftaran Lomba Experiment Antena 2M Band</h2>
+    
+    <!-- HUBUNGKAN: Ganti Tautan Action di Bawah Ini dengan URL Web App Google Sheets Anda -->
+    <form action="MASUKKAN_URL_WEB_APP_GOOGLE_SHEETS_DISINI" method="POST">
+        
+        <!-- Input Nama Asli -->
+        <div class="form-group">
+            <label for="nama_asli">Nama Asli :</label>
+            <span class="info-text">(Nama Sesuai KTP)</span>
+            <input type="text" id="nama_asli" name="nama_asli" required autocomplete="off">
+        </div>
+
+        <!-- Input Alamat -->
+        <div class="form-group">
+            <label for="alamat">Alamat (Nama Kota/Kabupaten):</label>
+            <span class="info-text">(Contoh : Kendari, Konawe, Dll)</span>
+            <input type="text" id="alamat" name="alamat" required autocomplete="off">
+        </div>
+
+        <!-- Input Jumlah Antena -->
+        <div class="form-group">
+            <label for="jumlah_antena">Jumlah Antena :</label>
+            <span class="info-text">(Tiap Joki Maksimal 2 Antena / Jika Mendaftarkan 2 Antena, Wajib Menggunakan 2 Nama Lari)</span>
+            <select id="jumlah_antena" name="jumlah_antena" onchange="handleAntennaChange()" required>
+                <option value="1">1 Antena</option>
+                <option value="2">2 Antena</option>
+            </select>
+        </div>
+
+        <!-- Kolom Nama Lari 1 (Selalu Muncul) -->
+        <div class="form-group" id="group_nama_lari_1">
+            <label for="nama_lari_1">Nama Lari 1 :</label>
+            <input type="text" id="nama_lari_1" name="nama_lari_1" required autocomplete="off">
+        </div>
+
+        <!-- Kolom Nama Lari 2 (Dinamis Muncul / Sembunyi) -->
+        <div class="animated-wrapper" id="group_nama_lari_2">
+            <label for="nama_lari_2">Nama Lari 2 :</label>
+            <input type="text" id="nama_lari_2" name="nama_lari_2" autocomplete="off">
+        </div>
+
+        <!-- Input Nomor WhatsApp -->
+        <div class="form-group" style="margin-top: 20px;">
+            <label for="whatsapp">No WA :</label>
+            <input type="tel" id="whatsapp" name="whatsapp" placeholder="Contoh: 0852xxxxxxxx" required>
+        </div>
+
+        <!-- Input Catatan Tambahan -->
+        <div class="form-group">
+            <label for="catatan">Catatan Tambahan :</label>
+            <textarea id="catatan" name="catatan" rows="3" placeholder="Tulis catatan jika ada..."></textarea>
+        </div>
+
+        <!-- Tombol Kirim Data -->
+        <button type="submit" class="btn-submit">Kirim Pendaftaran</button>
+    </form>
+
+    <!-- Bagian Tombol Hubungi Admin WhatsApp -->
+    <div class="admin-section">
+        <div class="admin-title">Butuh Bantuan? Hubungi Kami</div>
+        <div class="admin-buttons">
+            <!-- Ganti 6285241934557 dengan nomor WA Admin 1 Anda -->
+            <a href="https://wa.me" target="_blank" class="btn-admin">
+                💬 Hubungi Admin 1
+            </a>
+            <!-- Ganti 628xxxxxxxxxx dengan nomor WA Admin 2 Anda -->
+            <a href="https://wa.me" target="_blank" class="btn-admin">
+                💬 Hubungi Admin 2
+            </a>
+        </div>
+    </div>
 </div>
 
-<!-- Kolom Dinamis Nama Lari -->
-<div id="wrapper_nama_lari_1" class="form-group">
-    <label for="nama_lari_1">Nama Lari 1 :</label>
-    <input type="text" id="nama_lari_1" name="nama_lari_1" required>
-</div>
+<script>
+    function handleAntennaChange() {
+        const select = document.getElementById('jumlah_antena');
+        const wrapper2 = document.getElementById('group_nama_lari_2');
+        const input2 = document.getElementById('nama_lari_2');
 
-<div id="wrapper_nama_lari_2" class="form-group" style="display: none;">
-    <label for="nama_lari_2">Nama Lari 2 :</label>
-    <input type="text" id="nama_lari_2" name="nama_lari_2">
-</div>
+        if (select.value === '2') {
+            wrapper2.classList.add('show');
+            input2.setAttribute('required', 'required');
+        } else {
+            wrapper2.classList.remove('show');
+            input2.removeAttribute('required');
+            input2.value = ''; // Mengosongkan isian jika kembali memilih 1
+        }
+    }
+</script>
+</body>
+</html>
