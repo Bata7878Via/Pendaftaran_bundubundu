@@ -13,7 +13,7 @@
         }
 
         body {
-            /* Latar belakang foto dibuat penuh, kontras tinggi, dan tanpa penghalang warna gelap */
+            /* 1. GAMBAR LATAR BELAKANG HALAMAN UTAMA (Tetap Seperti Awalnya) */
             background-image: url('https://raw.githubusercontent.com/Bata7878Via/images/refs/heads/main/Antena.jpg');
             background-size: cover;
             background-position: center;
@@ -27,15 +27,19 @@
         }
 
         .container {
-            /* Dibuat lebih transparan agar foto latar belakang menembus area formulir dengan indah */
-            background-color: rgba(255, 255, 255, 0.88);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            /* 2. GAMBAR LATAR BELAKANG KHUSUS KOTAK FORMULIR */
+            /* Anda dapat mengganti tautan URL gambar di bawah ini sesuai keinginan Anda */
+            background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('https://raw.githubusercontent.com/Bata7878Via/images/refs/heads/main/allantena.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            
             width: 100%;
             max-width: 500px;
             padding: 25px 20px;
             border-radius: 16px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         h2 {
@@ -80,9 +84,9 @@
             padding: 14px;
             border: 2px solid #cbd5e0;
             border-radius: 8px;
-            font-size: 16px; /* Mencegah auto-zoom di HP Android */
+            font-size: 16px; 
             color: #2d3748;
-            background-color: #fff;
+            background-color: rgba(255, 255, 255, 0.85); /* Input semi-transparan agar latar kotak terlihat */
             outline: none;
             transition: border-color 0.2s;
             -webkit-appearance: none;
@@ -91,6 +95,7 @@
         input:focus, select:focus, textarea:focus {
             border-color: #3182ce;
             box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.15);
+            background-color: #ffffff;
         }
 
         select {
@@ -204,7 +209,6 @@
 <div class="container">
     <h2>Formulir Pendaftaran Lomba Experiment Antena 2M Band</h2>
     
-    <!-- HUBUNGKAN: Masukkan kembali URL Web App Google Sheets Anda di bawah ini -->
     <form action="MASUKKAN_URL_WEB_APP_GOOGLE_SHEETS_DISINI" method="POST">
         
         <!-- Input Nama Asli -->
@@ -263,17 +267,14 @@
     <div class="admin-section">
         <div class="admin-title">Butuh Bantuan? Hubungi Kami</div>
         <div class="admin-buttons">
-            <!-- Ganti nomor di bawah ini dengan nomor Admin 1 Anda -->
             <a href="https://wa.me" target="_blank" class="btn-admin">
                 💬 Hubungi Admin 1 Bunda_Adel
             </a>
-            <!-- Ganti nomor di bawah ini dengan nomor Admin 2 Anda -->
             <a href="https://wa.me" target="_blank" class="btn-admin">
                 💬 Hubungi Admin 2 Om_Beddu
             </a>
         </div>
         
-        <!-- Hak Cipta di bawah tombol Admin -->
         <span class="copyright-text">©2026 Om_GoBel All Rights Reserved</span>
     </div>
 </div>
