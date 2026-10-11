@@ -13,8 +13,8 @@
         }
 
         body {
-            /* Latar belakang foto bertema teknologi frekuensi/radio */
-            background-image: url('https://raw.githubusercontent.com/Bata7878Via/images/refs/heads/main/Antena.jpg');
+            /* Latar belakang foto dibuat penuh, kontras tinggi, dan tanpa penghalang warna gelap */
+            background-image: url('https://unsplash.com');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -27,12 +27,15 @@
         }
 
         .container {
-            background-color: rgba(255, 255, 255, 0.95);
+            /* Dibuat lebih transparan agar foto latar belakang menembus area formulir dengan indah */
+            background-color: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             width: 100%;
             max-width: 500px;
             padding: 25px 20px;
             border-radius: 16px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
         }
 
         h2 {
@@ -61,10 +64,11 @@
         .info-text {
             display: block;
             font-size: 0.8rem;
-            color: #718096;
+            color: #4a5568;
             margin-bottom: 8px;
             font-style: italic;
             line-height: 1.3;
+            font-weight: 500;
         }
 
         input[type="text"],
@@ -81,7 +85,7 @@
             background-color: #fff;
             outline: none;
             transition: border-color 0.2s;
-            -webkit-appearance: none; /* Standarisasi tampilan di Android */
+            -webkit-appearance: none;
         }
 
         input:focus, select:focus, textarea:focus {
@@ -131,14 +135,14 @@
 
         .admin-section {
             margin-top: 30px;
-            border-top: 1px dashed #e2e8f0;
+            border-top: 1px dashed #cbd5e0;
             padding-top: 20px;
             text-align: center;
         }
 
         .admin-title {
             font-size: 0.85rem;
-            color: #718096;
+            color: #4a5568;
             margin-bottom: 12px;
             font-weight: 600;
             text-transform: uppercase;
@@ -148,6 +152,7 @@
         .admin-buttons {
             display: flex;
             gap: 10px;
+            margin-bottom: 20px;
         }
 
         .btn-admin {
@@ -170,6 +175,16 @@
             background-color: #2f855a;
         }
 
+        .copyright-text {
+            display: block;
+            font-size: 0.75rem;
+            color: #718096;
+            text-align: center;
+            margin-top: 15px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+
         @media (max-width: 480px) {
             body {
                 padding: 10px 10px;
@@ -189,7 +204,7 @@
 <div class="container">
     <h2>Formulir Pendaftaran Lomba Experiment Antena 2M Band</h2>
     
-    <!-- HUBUNGKAN: Ganti Tautan Action di Bawah Ini dengan URL Web App Google Sheets Anda -->
+    <!-- HUBUNGKAN: Masukkan kembali URL Web App Google Sheets Anda di bawah ini -->
     <form action="MASUKKAN_URL_WEB_APP_GOOGLE_SHEETS_DISINI" method="POST">
         
         <!-- Input Nama Asli -->
@@ -216,13 +231,13 @@
             </select>
         </div>
 
-        <!-- Kolom Nama Lari 1 (Selalu Muncul) -->
+        <!-- Kolom Nama Lari 1 -->
         <div class="form-group" id="group_nama_lari_1">
             <label for="nama_lari_1">Nama Lari 1 :</label>
             <input type="text" id="nama_lari_1" name="nama_lari_1" required autocomplete="off">
         </div>
 
-        <!-- Kolom Nama Lari 2 (Dinamis Muncul / Sembunyi) -->
+        <!-- Kolom Nama Lari 2 -->
         <div class="animated-wrapper" id="group_nama_lari_2">
             <label for="nama_lari_2">Nama Lari 2 :</label>
             <input type="text" id="nama_lari_2" name="nama_lari_2" autocomplete="off">
@@ -244,19 +259,22 @@
         <button type="submit" class="btn-submit">Kirim Pendaftaran</button>
     </form>
 
-    <!-- Bagian Tombol Hubungi Admin WhatsApp -->
+    <!-- Bagian Kontak Admin & Hak Cipta -->
     <div class="admin-section">
         <div class="admin-title">Butuh Bantuan? Hubungi Kami</div>
         <div class="admin-buttons">
-            <!-- Ganti 6285241934557 dengan nomor WA Admin 1 Anda -->
+            <!-- Ganti nomor di bawah ini dengan nomor Admin 1 Anda -->
             <a href="https://wa.me" target="_blank" class="btn-admin">
-                💬 Hubungi Admin 1 Bunda Adel
+                💬 Hubungi Admin 1
             </a>
-            <!-- Ganti 628xxxxxxxxxx dengan nomor WA Admin 2 Anda -->
+            <!-- Ganti nomor di bawah ini dengan nomor Admin 2 Anda -->
             <a href="https://wa.me" target="_blank" class="btn-admin">
-                💬 Hubungi Admin 2 Om Beddu
+                💬 Hubungi Admin 2
             </a>
         </div>
+        
+        <!-- Hak Cipta di bawah tombol Admin -->
+        <span class="copyright-text">©2026 8ICG_GoBel All Rights Reserved</span>
     </div>
 </div>
 
@@ -272,7 +290,7 @@
         } else {
             wrapper2.classList.remove('show');
             input2.removeAttribute('required');
-            input2.value = ''; // Mengosongkan isian jika kembali memilih 1
+            input2.value = '';
         }
     }
 </script>
