@@ -38,6 +38,7 @@
             border: 1px solid rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(4px);
             -webkit-backdrop-filter: blur(4px);
+            position: relative;
         }
 
         h2 {
@@ -128,7 +129,7 @@
             margin-top: 15px;
         }
 
-        .btn-submit, .btn-done {
+        .btn-submit {
             width: 100%;
             background-color: #3182ce;
             color: white;
@@ -143,7 +144,7 @@
             margin-top: 10px;
         }
 
-        .btn-submit:hover, .btn-done:hover {
+        .btn-submit:hover {
             background-color: #2b6cb0;
         }
 
@@ -153,25 +154,74 @@
             box-shadow: none;
         }
 
-        /* Tampilan Notifikasi Sukses */
-        .success-notification {
-            display: none;
-            text-align: center;
-            padding: 20px 10px;
+        /* ===== STYLE POPUP MODAL MERDEKA ===== */
+        .modal-overlay {
+            display: flex;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
         }
 
-        .success-icon {
-            font-size: 3rem;
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-box {
+            background-color: #1a202c;
+            border: 2px solid #63b3ed;
+            padding: 30px 24px;
+            border-radius: 16px;
+            text-align: center;
+            max-width: 400px;
+            width: 85%;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-box {
+            transform: scale(1);
+        }
+
+        .modal-icon {
+            font-size: 3.5rem;
             color: #48bb78;
             margin-bottom: 15px;
         }
 
-        .success-message {
+        .modal-text {
             color: #ffffff;
             font-size: 1.3rem;
             font-weight: 700;
             margin-bottom: 25px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .btn-done {
+            width: 100%;
+            background-color: #48bb78;
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(72, 187, 120, 0.3);
+            transition: background-color 0.2s;
+        }
+
+        .btn-done:hover {
+            background-color: #38a169;
         }
 
         .admin-section {
@@ -243,66 +293,36 @@
 <body>
 
 <div class="container">
-    <!-- Area Formulir Utama -->
-    <div id="formContainer">
-        <h2>Formulir Pendaftaran Lomba Experiment Antena 2M Band</h2>
+    <h2>Formulir Pendaftaran Lomba Experiment Antena 2M Band</h2>
+    
+    <!-- HUBUNGKAN: Jangan lupa ganti teks di bawah dengan URL Web App Google Sheets Anda -->
+    <form id="registrationForm" action="MASUKKAN_URL_WEB_APP_GOOGLE_SHEETS_DISINI" method="POST">
         
-        <!-- HUBUNGKAN: Ganti teks di bawah dengan URL Web App Google Sheets Anda -->
-        <form id="registrationForm" action="MASUKKAN_URL_WEB_APP_GOOGLE_SHEETS_DISINI" method="POST">
-            
-            <div class="form-group">
-                <label for="nama_asli">Nama Asli :</label>
-                <span class="info-text">(Nama Sesuai KTP)</span>
-                <input type="text" id="nama_asli" name="nama_asli" required autocomplete="off">
-            </div>
+        <div class="form-group">
+            <label for="nama_asli">Nama Asli :</label>
+            <span class="info-text">(Nama Sesuai KTP)</span>
+            <input type="text" id="nama_asli" name="nama_asli" required autocomplete="off">
+        </div>
 
-            <div class="form-group">
-                <label for="alamat">Alamat (Nama Kota/Kabupaten):</label>
-                <span class="info-text">(Contoh : Kendari, Konawe, Dll)</span>
-                <input type="text" id="alamat" name="alamat" required autocomplete="off">
-            </div>
+        <div class="form-group">
+            <label for="alamat">Alamat (Nama Kota/Kabupaten):</label>
+            <span class="info-text">(Contoh : Kendari, Konawe, Dll)</span>
+            <input type="text" id="alamat" name="alamat" required autocomplete="off">
+        </div>
 
-            <div class="form-group">
-                <label for="jumlah_antena">Jumlah Antena :</label>
-                <span class="info-text">(Tiap Joki Maksimal 2 Antena / Jika Mendaftarkan 2 Antena, Wajib Menggunakan 2 Nama Lari)</span>
-                <select id="jumlah_antena" name="jumlah_antena" onchange="handleAntennaChange()" required>
-                    <option value="1">1 Antena</option>
-                    <option value="2">2 Antena</option>
-                </select>
-            </div>
+        <div class="form-group">
+            <label for="jumlah_antena">Jumlah Antena :</label>
+            <span class="info-text">(Tiap Joki Maksimal 2 Antena / Jika Mendaftarkan 2 Antena, Wajib Menggunakan 2 Nama Lari)</span>
+            <select id="jumlah_antena" name="jumlah_antena" onchange="handleAntennaChange()" required>
+                <option value="1">1 Antena</option>
+                <option value="2">2 Antena</option>
+            </select>
+        </div>
 
-            <div class="form-group" id="group_nama_lari_1">
-                <label for="nama_lari_1">Nama Lari 1 :</label>
-                <input type="text" id="nama_lari_1" name="nama_lari_1" required autocomplete="off">
-            </div>
+        <div class="form-group" id="group_nama_lari_1">
+            <label for="nama_lari_1">Nama Lari 1 :</label>
+            <input type="text" id="nama_lari_1" name="nama_lari_1" required autocomplete="off">
+        </div>
 
-            <div class="animated-wrapper" id="group_nama_lari_2">
-                <label for="nama_lari_2">Nama Lari 2 :</label>
-                <input type="text" id="nama_lari_2" name="nama_lari_2" autocomplete="off">
-            </div>
-
-            <div class="form-group" style="margin-top: 20px;">
-                <label for="whatsapp">No WA :</label>
-                <input type="tel" id="whatsapp" name="whatsapp" placeholder="Contoh: 0852xxxxxxxx" required>
-            </div>
-
-            <div class="form-group">
-                <label for="catatan">Catatan Tambahan :</label>
-                <textarea id="catatan" name="catatan" rows="3" placeholder="Tulis catatan jika ada..."></textarea>
-            </div>
-
-            <button type="submit" id="submitBtn" class="btn-submit">Kirim Pendaftaran</button>
-        </form>
-    </div>
-
-    <!-- Area Notifikasi Sukses (Tersembunyi Awalnya) -->
-    <div id="successNotification" class="success-notification">
-        <div class="success-icon">✓</div>
-        <div class="success-message">Selamat Anda Sudah Terdaftar</div>
-        <button type="button" class="btn-done" onclick="resetFormView()">Selesai</button>
-    </div>
-
-    <!-- Bagian Kontak Admin & Hak Cipta -->
-    <div class="admin-section">
-        <div class="admin-title">Butuh Bantuan? Hubungi Kami</div>
-        <div class="admin-buttons">
+        <div class="animated-wrapper" id="group_nama_lari_2">
+            <label for="nama_lari_2">Nama Lari 2 :</label>
